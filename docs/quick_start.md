@@ -44,14 +44,22 @@ open http://localhost:8888
 ```python
 from src.data_collection.news_collector import NewsCollector
 
-# Initialize collector
+# Initialize collector with free sources
 collector = NewsCollector({
-    'newsapi': 'your_api_key_here'
+    'rss_feeds': [
+        'https://www.bbc.com/news/rss.xml',
+        'http://feeds.reuters.com/reuters/technologyNews',
+        'http://rss.cnn.com/rss/edition_technology.rss'
+    ]
 })
 
-# Collect articles
-articles = collector.collect_from_newsapi(query='technology', page_size=50)
+# Collect articles from RSS feeds
+articles = collector.collect_from_rss_feeds()
 print(f"Collected {len(articles)} articles")
+
+# Or load from free datasets
+articles = collector.load_from_dataset('uci_news_aggregator')
+print(f"Loaded {len(articles)} articles from dataset")
 ```
 
 ### 2. Cluster Articles
@@ -139,13 +147,13 @@ jupyter notebook list
 
 ### Common Issues
 
-#### 1. API Key Issues
+#### 1. RSS Feed Issues
 ```bash
-# Check environment variables
-cat .env
+# Check RSS feed availability
+curl -I https://www.bbc.com/news/rss.xml
 
-# Verify API keys are set
-echo $NEWS_API_KEY
+# Test RSS feed parsing
+python -c "import feedparser; print(feedparser.parse('https://www.bbc.com/news/rss.xml').status)"
 ```
 
 #### 2. Docker Issues

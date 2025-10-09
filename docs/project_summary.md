@@ -165,9 +165,12 @@ This project creates an intelligent system for clustering news articles and gene
 - [Jupyter Documentation](https://jupyter.org/documentation)
 
 ### Data Sources
-- [NewsAPI](https://newsapi.org/)
-- [Guardian API](https://open-platform.theguardian.com/)
+- [BBC RSS Feeds](https://www.bbc.com/news/rss.xml)
 - [Reuters RSS Feeds](http://feeds.reuters.com/)
+- [CNN RSS Feeds](http://rss.cnn.com/rss/edition.rss)
+- [Guardian RSS Feeds](https://www.theguardian.com/world/rss)
+- [UCI News Aggregator Dataset](https://archive.ics.uci.edu/ml/datasets/News+Aggregator)
+- [Kaggle News Datasets](https://www.kaggle.com/datasets?search=news)
 
 ### Research Papers
 - HDBSCAN: Hierarchical Density-Based Clustering
