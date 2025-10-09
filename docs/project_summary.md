@@ -68,8 +68,8 @@ This project creates an intelligent system for clustering news articles and gene
 - [ ] Data quality assessment
 
 ### 5. Implement All Algorithms (Weeks 3-6)
-- [ ] Clustering algorithms (HDBSCAN, DBSCAN, Deep Learning)
-- [ ] Summarization algorithms (Transformer, TextRank, Hybrid)
+- [ ] Clustering algorithms (HDBSCAN, DBSCAN, OPTICS, GMM, K-Means++, Deep Learning)
+- [ ] Summarization algorithms (PEGASUS, BART, T5, TextRank, Hybrid)
 - [ ] Incremental update mechanisms
 - [ ] Algorithm evaluation scripts
 
@@ -139,13 +139,13 @@ This project creates an intelligent system for clustering news articles and gene
 ## 🔧 Key Features
 
 ### Clustering Features
-- **Multiple Algorithms**: HDBSCAN, DBSCAN, Deep Learning approaches
+- **Multiple Algorithms**: HDBSCAN, DBSCAN, OPTICS, GMM, K-Means++, Deep Learning approaches
 - **Incremental Updates**: Handle new articles without full re-clustering
 - **Quality Metrics**: Comprehensive evaluation of clustering quality
 - **Visualization**: Cluster visualization and analysis tools
 
 ### Summarization Features
-- **Transformer-based**: State-of-the-art summarization using pre-trained models
+- **State-of-the-art Models**: PEGASUS, BART, T5 for news-specific summarization
 - **Multi-document**: Summarize clusters of related articles
 - **Quality Assessment**: Automatic evaluation of summary quality
 - **Multiple Methods**: Extractive and abstractive summarization
@@ -171,6 +171,7 @@ This project creates an intelligent system for clustering news articles and gene
 
 ### Research Papers
 - HDBSCAN: Hierarchical Density-Based Clustering
+- PEGASUS: Pre-training with Extracted Gap-sentences for Abstractive Summarization
 - BART: Denoising Sequence-to-Sequence Pre-training
 - TextRank: Bringing Order into Text
 
@@ -180,7 +181,7 @@ This project creates an intelligent system for clustering news articles and gene
 2. **Week 2**: Implement basic clustering pipeline
 3. **Week 3**: Add summarization capabilities
 4. **Week 4**: Implement incremental updates
-5. **Week 5**: Create API and web interface
+5. **Week 5**: Create evaluation framework and comparison tools
 6. **Week 6**: Optimize performance and add monitoring
 7. **Week 7**: Finalize documentation and prepare presentation
 

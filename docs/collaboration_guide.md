@@ -22,8 +22,8 @@ news-clustering-project/
 │   ├── data_collection/
 │   ├── clustering/
 │   ├── summarization/
-│   ├── evaluation/
-│   └── api/
+│   └── evaluation/
+├── notebooks/
 ├── docs/
 ```
 
@@ -39,7 +39,7 @@ type(scope): description
 
 Examples:
 feat(clustering): implement HDBSCAN clustering algorithm
-fix(api): resolve CORS issue in FastAPI endpoints
+feat(summarization): implement PEGASUS summarization
 docs(readme): update installation instructions
 test(clustering): add unit tests for HDBSCAN clusterer
 ```

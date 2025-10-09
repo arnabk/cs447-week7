@@ -62,8 +62,53 @@ Implement and compare multiple clustering and summarization algorithms to determ
 - Training time vs. performance
 - Embedding quality
 
-### 5. Mean Shift Clustering
+### 5. OPTICS (Ordering Points To Identify Clustering Structure)
+**Implementation Priority**: High
+**Expected Performance**: 8/10
+**Use Cases**:
+- Varying cluster densities
+- Hierarchical clustering structure
+- Better than DBSCAN for mixed densities
+- Automatic cluster count detection
+
+**Evaluation Metrics**:
+- Silhouette Score
+- Adjusted Rand Index
+- Reachability plot analysis
+- Cluster hierarchy quality
+
+### 6. Gaussian Mixture Models (GMM)
+**Implementation Priority**: High
+**Expected Performance**: 7/10
+**Use Cases**:
+- Overlapping topic clusters
+- Probabilistic cluster assignments
+- Soft clustering for ambiguous articles
+- Model-based approach
+
+**Evaluation Metrics**:
+- Silhouette Score
+- Adjusted Rand Index
+- Log-likelihood
+- BIC/AIC model selection
+
+### 7. K-Means++ (Enhanced K-Means)
 **Implementation Priority**: Medium
+**Expected Performance**: 6/10
+**Use Cases**:
+- Spherical cluster shapes
+- Fast processing baseline
+- Simple parameter tuning
+- Comparison baseline
+
+**Evaluation Metrics**:
+- Silhouette Score
+- Adjusted Rand Index
+- Inertia (within-cluster sum of squares)
+- Convergence analysis
+
+### 8. Mean Shift Clustering
+**Implementation Priority**: Low
 **Expected Performance**: 6/10
 **Use Cases**:
 - Automatic cluster count
@@ -78,7 +123,22 @@ Implement and compare multiple clustering and summarization algorithms to determ
 
 ## 📝 Summarization Algorithms to Implement
 
-### 1. Transformer-based Summarization
+### 1. PEGASUS (Pre-training with Extracted Gap-sentences for Abstractive Summarization)
+**Implementation Priority**: High
+**Expected Performance**: 9/10
+**Use Cases**:
+- News-specific summarization
+- Abstractive summarization
+- Long document summarization
+- State-of-the-art for news
+
+**Evaluation Metrics**:
+- ROUGE-1, ROUGE-2, ROUGE-L
+- BLEU scores
+- Semantic similarity
+- Compression ratio
+
+### 2. Transformer-based Summarization
 **Implementation Priority**: High
 **Expected Performance**: 9/10
 **Models to Test**:
@@ -92,7 +152,7 @@ Implement and compare multiple clustering and summarization algorithms to determ
 - Semantic similarity
 - Compression ratio
 
-### 2. Graph-based Summarization
+### 3. Graph-based Summarization
 **Implementation Priority**: High
 **Expected Performance**: 8/10
 **Algorithms to Test**:
@@ -107,7 +167,7 @@ Implement and compare multiple clustering and summarization algorithms to determ
 - Sentence importance ranking
 - Graph connectivity analysis
 
-### 3. Traditional NLP Summarization
+### 4. Traditional NLP Summarization
 **Implementation Priority**: Medium
 **Expected Performance**: 6/10
 **Methods to Test**:
@@ -121,7 +181,7 @@ Implement and compare multiple clustering and summarization algorithms to determ
 - Keyword extraction quality
 - Processing speed
 
-### 4. Hybrid Approaches
+### 5. Hybrid Approaches
 **Implementation Priority**: High
 **Expected Performance**: 8/10
 **Combinations to Test**:
@@ -200,18 +260,19 @@ Implement and compare multiple clustering and summarization algorithms to determ
 ## 📈 Expected Outcomes
 
 ### Algorithm Performance Rankings
-1. **Best Overall Clustering**: HDBSCAN + Deep Learning
-2. **Best Real-time Clustering**: DBSCAN
-3. **Best Summarization**: BART + TextRank hybrid
-4. **Best Speed**: DBSCAN + TF-IDF
-5. **Best Quality**: Deep Learning + BART
+1. **Best Overall Clustering**: HDBSCAN + OPTICS
+2. **Best Probabilistic Clustering**: GMM + Deep Learning
+3. **Best Summarization**: PEGASUS + BART hybrid
+4. **Best Speed**: K-Means++ + TF-IDF
+5. **Best Quality**: Deep Learning + PEGASUS
 
 ### Use Case Recommendations
 1. **Real-time News Processing**: DBSCAN + BART
-2. **Batch Analysis**: HDBSCAN + T5
-3. **High-quality Summaries**: Deep Learning + BART + TextRank
-4. **Fast Processing**: DBSCAN + TF-IDF
-5. **Incremental Updates**: HDBSCAN + Transformer
+2. **Batch Analysis**: HDBSCAN + OPTICS + PEGASUS
+3. **High-quality Summaries**: Deep Learning + PEGASUS + TextRank
+4. **Fast Processing**: K-Means++ + TF-IDF
+5. **Overlapping Topics**: GMM + BART
+6. **Incremental Updates**: HDBSCAN + OPTICS + Transformer
 
 ### Performance Benchmarks
 - **Clustering Accuracy**: >85% for best algorithms

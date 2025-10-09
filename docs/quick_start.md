@@ -206,7 +206,7 @@ docker stats
 - **Week 1**: Basic system setup and data collection
 - **Week 2**: Clustering implementation
 - **Week 3**: Summarization system
-- **Week 4**: API development
+- **Week 4**: Algorithm comparison framework
 - **Week 5**: System integration
 - **Week 6**: Performance optimization
 - **Week 7**: Final deployment and documentation
