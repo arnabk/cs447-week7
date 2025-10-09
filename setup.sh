@@ -84,7 +84,7 @@ print_success "Virtual environment activated"
 
 # Upgrade pip
 print_status "Upgrading pip..."
-pip install --upgrade pip
+source venv/bin/activate && pip install --upgrade pip
 print_success "pip upgraded"
 
 # Install system dependencies (if needed)
@@ -130,12 +130,12 @@ fi
 
 # Install Python dependencies
 print_status "Installing Python dependencies..."
-pip install -r requirements.txt
+source venv/bin/activate && pip install -r requirements.txt
 print_success "Python dependencies installed"
 
 # Download NLTK data
 print_status "Downloading NLTK data..."
-python -c "
+source venv/bin/activate && python -c "
 import nltk
 try:
     nltk.download('punkt')
@@ -149,7 +149,7 @@ except Exception as e:
 
 # Download spaCy model
 print_status "Downloading spaCy English model..."
-python -m spacy download en_core_web_sm
+source venv/bin/activate && python -m spacy download en_core_web_sm
 
 # Create necessary directories
 print_status "Creating project directories..."
@@ -169,33 +169,12 @@ else
     print_warning ".env file already exists or env.example not found"
 fi
 
-# Set up database (if using local database)
-print_status "Setting up database..."
-if [[ "$OS" == "macos" ]]; then
-    # Start PostgreSQL service on macOS
-    if command -v brew &> /dev/null; then
-        brew services start postgresql
-    fi
-elif [[ "$OS" == "linux" ]]; then
-    # Start PostgreSQL service on Linux
-    sudo systemctl start postgresql
-    sudo systemctl enable postgresql
-fi
-
-# Start Redis
-print_status "Starting Redis..."
-if [[ "$OS" == "macos" ]]; then
-    if command -v brew &> /dev/null; then
-        brew services start redis
-    fi
-elif [[ "$OS" == "linux" ]]; then
-    sudo systemctl start redis
-    sudo systemctl enable redis
-fi
+# Note: Database setup removed as this is a research project using Jupyter notebooks
+print_status "Skipping database setup (research project uses Jupyter notebooks)"
 
 # Run basic tests to verify installation
 print_status "Running basic tests..."
-python -c "
+source venv/bin/activate && python -c "
 try:
     import numpy as np
     import pandas as pd
@@ -203,8 +182,10 @@ try:
     import spacy
     import transformers
     import torch
-    import fastapi
-    import uvicorn
+    import hdbscan
+    import umap
+    import feedparser
+    import jupyter
     print('All core dependencies imported successfully')
 except ImportError as e:
     print(f'Warning: Some dependencies might not be properly installed: {e}')
@@ -217,8 +198,8 @@ print_success "Project setup completed successfully!"
 print_status "Next steps:"
 echo "1. Activate the virtual environment: source venv/bin/activate"
 echo "2. Update the .env file with your configuration"
-echo "3. Start the application: python src/api/main.py"
+echo "3. Start Jupyter notebooks: jupyter lab"
 echo "4. Or use Docker: docker-compose up"
 echo ""
 print_status "For Docker setup, run: docker-compose up --build"
-print_status "For development, activate venv and run: python src/api/main.py"
+print_status "For development, activate venv and run: jupyter lab"

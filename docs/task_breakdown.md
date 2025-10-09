@@ -8,10 +8,10 @@
 ### 1. Setup Project
 **Duration**: Week 1
 **Deliverables**: 
-- [ ] Development environment setup
-- [ ] Docker containerization
-- [ ] Basic project structure
-- [ ] Version control and collaboration setup
+- [x] Development environment setup
+- [x] Docker containerization
+- [x] Basic project structure
+- [x] Version control and collaboration setup
 
 ### 2. Research All Algorithms to Experiment
 **Duration**: Week 1-2
