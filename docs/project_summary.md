@@ -3,6 +3,8 @@
 ## 🎯 Project Overview
 This project creates an intelligent system for clustering news articles and generating meaningful summaries. The system can handle incremental updates when new batches of articles arrive, making it suitable for real-time news processing.
 
+**Team Members**: Yihui Yu (netID: yihuiy2), Arnab Karmakar (netID: arnabk3)
+
 ## 🏆 Best Approach Recommendations
 
 ### Clustering Algorithms (Ranked by Effectiveness)
@@ -39,60 +41,48 @@ This project creates an intelligent system for clustering news articles and gene
    - **Best for**: Quick prototyping and baseline comparisons
    - **Implementation**: Fast but lower quality
 
-## 📋 Granular Task Division
+## 📋 High-Level Task Division
 
-### Phase 1: Foundation (Weeks 1-2)
-**Yihui Yu (yihuiy2) - Backend/ML Focus:**
-- [ ] Set up Python virtual environment and Docker
-- [ ] Implement HDBSCAN clustering algorithm
-- [ ] Create clustering evaluation metrics
-- [ ] Set up FastAPI web service
+### 1. Setup Project (Week 1)
+- [ ] Development environment setup
+- [ ] Docker containerization
+- [ ] Basic project structure
+- [ ] Version control and collaboration setup
 
-**Arnab Karmakar (arnabk3) - Data/ML Focus:**
-- [ ] Research and implement news data collection
-- [ ] Create text preprocessing pipeline
-- [ ] Implement embedding generation
-- [ ] Set up database schema and storage
+### 2. Research All Algorithms (Weeks 1-2)
+- [ ] Complete algorithm research and documentation
+- [ ] Algorithm comparison framework
+- [ ] Implementation priority matrix
+- [ ] Resource requirements analysis
 
-### Phase 2: Core Development (Weeks 3-4)
-**Yihui Yu (yihuiy2) - Advanced ML:**
-- [ ] Implement transformer-based summarization
-- [ ] Create cluster summarization pipeline
-- [ ] Implement deep learning clustering approaches
-- [ ] Optimize model performance
+### 3. Research Evaluation Criteria (Week 2)
+- [ ] Clustering evaluation metrics (Silhouette, ARI, DBI)
+- [ ] Summarization evaluation metrics (ROUGE, BLEU)
+- [ ] Performance benchmarks
+- [ ] Evaluation framework design
 
-**Arnab Karmakar (arnabk3) - Data Pipeline:**
-- [ ] Implement DBSCAN and K-means baselines
-- [ ] Create incremental clustering system
-- [ ] Implement cluster update algorithms
-- [ ] Create monitoring and logging
+### 4. Collect Data and Separate Training/Testing (Weeks 2-3)
+- [ ] News data collection pipeline
+- [ ] Data preprocessing and cleaning
+- [ ] Train/test/validation splits
+- [ ] Data quality assessment
 
-### Phase 3: Integration (Weeks 5-6)
-**Yihui Yu (yihuiy2) - API/Deployment:**
-- [ ] Create REST API endpoints
-- [ ] Implement real-time processing
-- [ ] Create Docker containerization
-- [ ] Optimize system performance
+### 5. Implement All Algorithms (Weeks 3-6)
+- [ ] Clustering algorithms (HDBSCAN, DBSCAN, Deep Learning)
+- [ ] Summarization algorithms (Transformer, TextRank, Hybrid)
+- [ ] Incremental update mechanisms
+- [ ] Algorithm evaluation scripts
 
-**Arnab Karmakar (arnabk3) - Evaluation/Documentation:**
-- [ ] Implement evaluation metrics
-- [ ] Create comprehensive documentation
-- [ ] Write system tests
-- [ ] Prepare presentation materials
+### 6. Capture Metrics and Create Comparison Table (Weeks 6-7)
+- [ ] Comprehensive performance evaluation
+- [ ] Algorithm comparison matrix
+- [ ] Statistical significance testing
+- [ ] Final recommendations report
 
-### Phase 4: Finalization (Week 7)
-**Both Students:**
-- [ ] Final system integration and testing
-- [ ] Performance optimization
-- [ ] Write comprehensive final report
-- [ ] Prepare project presentation
+*See `task_breakdown.md` for detailed task assignments and responsibilities.*
 
 ## 🤝 Collaboration Schedule
-- **Time**: 9:00 PM - 12:00 AM MST (3 hours daily)
-- **Days**: Monday, Wednesday, Friday (3 days/week)
-- **Total Collaboration Time**: 9 hours/week
-- **Project Duration**: 7 weeks
-- **Total Collaboration Hours**: 63 hours
+*See `collaboration_guide.md` for detailed schedule information.*
 
 ## 🛠 Technology Stack
 
@@ -110,18 +100,17 @@ This project creates an intelligent system for clustering news articles and gene
 
 ### Deployment
 - **Docker**: Containerization
-- **FastAPI**: Web API framework
 - **PostgreSQL**: Database
-- **Redis**: Caching layer
+- **Jupyter Notebooks**: Analysis and experimentation
 
 ## 📊 Success Metrics
 
 ### Technical Success
 - [ ] Clustering accuracy > 80%
 - [ ] Summarization quality (ROUGE > 0.7)
-- [ ] System response time < 5 seconds
+- [ ] Algorithm comparison completed
 - [ ] Docker container deployment successful
-- [ ] API endpoints functional
+- [ ] Evaluation framework functional
 
 ### Collaboration Success
 - [ ] All tasks completed on time
@@ -131,36 +120,7 @@ This project creates an intelligent system for clustering news articles and gene
 - [ ] Project delivered successfully
 
 ## 🚀 Getting Started
-
-### Quick Start
-```bash
-# Clone and setup
-git clone <repository>
-cd news-clustering-project
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run with Docker
-docker-compose up
-
-# Access API
-curl http://localhost:8000/health
-```
-
-### Development Setup
-```bash
-# Copy environment file
-cp env.example .env
-# Edit .env with your API keys
-
-# Run with Docker (recommended)
-docker-compose up -d
-
-# Or run locally (requires Python 3.9+)
-pip install -r requirements.txt
-uvicorn src.api.main:app --reload
-```
+*See `quick_start.md` for detailed setup and usage instructions.*
 
 ## 📈 Expected Outcomes
 
@@ -191,18 +151,18 @@ uvicorn src.api.main:app --reload
 - **Multiple Methods**: Extractive and abstractive summarization
 
 ### System Features
-- **REST API**: Full REST API for all functionality
-- **Real-time Processing**: Handle streaming news articles
+- **Algorithm Comparison**: Comprehensive evaluation framework
+- **Batch Processing**: Handle news article datasets
 - **Scalable Architecture**: Docker-based deployment
-- **Monitoring**: Comprehensive logging and monitoring
+- **Analysis Tools**: Jupyter notebooks for experimentation
 
 ## 📚 Resources and References
 
 ### Documentation
 - [HDBSCAN Documentation](https://hdbscan.readthedocs.io/)
 - [Transformers Library](https://huggingface.co/transformers/)
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
 - [Docker Best Practices](https://docs.docker.com/develop/best-practices/)
+- [Jupyter Documentation](https://jupyter.org/documentation)
 
 ### Data Sources
 - [NewsAPI](https://newsapi.org/)

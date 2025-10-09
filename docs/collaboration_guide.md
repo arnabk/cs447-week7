@@ -5,9 +5,9 @@
 - **Arnab Karmakar** (netid: arnabk3, github: arnabk)
 
 ## 🕘 Collaboration Schedule
-- **Time**: 1 hour per session
+- **Time**: 9:00 PM - 12:00 AM MST (3 hours daily)
 - **Days**: Monday, Wednesday, Friday
-- **Total**: 3 hours/week × 7 weeks = 21 hours
+- **Total**: 9 hours/week × 7 weeks = 63 hours
 
 ## 📁 GitHub Repository Setup
 

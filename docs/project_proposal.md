@@ -7,10 +7,6 @@ News Article Clustering and Summarization with Incremental Updates
 - **Yihui Yu** (netID: yihuiy2)
 - **Arnab Karmakar** (netID: arnabk3)
 
-## Project Coordinator
-- **Yihui Yu** (netID: yihuiy2)
-- **Arnab Karmakar** (netID: arnabk3)
-
 ## Project Keywords
 #clustering #summarization #incremental-learning #news-analysis #nlp
 

@@ -27,15 +27,15 @@ docker-compose logs -f app
 
 ### 3. Run Locally (Development)
 ```bash
-# Start database and Redis
-docker-compose up -d db redis
+# Start database
+docker-compose up -d db
 
-# Run the application (requires Python 3.9+)
+# Run Jupyter notebooks (requires Python 3.9+)
 pip install -r requirements.txt
-uvicorn src.api.main:app --reload
+jupyter lab
 
-# Access API documentation
-open http://localhost:8000/docs
+# Access Jupyter interface
+open http://localhost:8888
 ```
 
 ## 📊 Test the System
@@ -85,49 +85,34 @@ summary = summarizer.summarize_cluster(cluster_articles)
 print(f"Summary: {summary['summary']}")
 ```
 
-## 🔧 API Usage
+## 🔧 Algorithm Testing
 
-### Health Check
-```bash
-curl http://localhost:8000/health
+### Test Clustering Algorithms
+```python
+# Test different clustering algorithms
+from src.clustering.hdbscan_clusterer import HDBSCANClusterer
+from src.clustering.dbscan_clusterer import DBSCANClusterer
+
+# Compare clustering results
+hdbscan_results = HDBSCANClusterer().fit(embeddings)
+dbscan_results = DBSCANClusterer().fit(embeddings)
+
+print(f"HDBSCAN found {len(hdbscan_results.clusters)} clusters")
+print(f"DBSCAN found {len(dbscan_results.clusters)} clusters")
 ```
 
-### Cluster Articles
-```bash
-curl -X POST "http://localhost:8000/cluster" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "articles": [
-      {
-        "id": "1",
-        "title": "AI News",
-        "content": "Artificial intelligence is advancing...",
-        "source": "TechNews",
-        "published_at": "2024-01-01T00:00:00Z",
-        "url": "https://example.com/ai-news"
-      }
-    ],
-    "algorithm": "hdbscan"
-  }'
-```
+### Test Summarization Algorithms
+```python
+# Test different summarization methods
+from src.summarization.transformer_summarizer import TransformerSummarizer
+from src.summarization.textrank_summarizer import TextRankSummarizer
 
-### Summarize Articles
-```bash
-curl -X POST "http://localhost:8000/summarize" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "articles": [
-      {
-        "id": "1",
-        "title": "AI News",
-        "content": "Artificial intelligence is advancing...",
-        "source": "TechNews",
-        "published_at": "2024-01-01T00:00:00Z",
-        "url": "https://example.com/ai-news"
-      }
-    ],
-    "method": "transformer"
-  }'
+# Compare summarization results
+transformer_summary = TransformerSummarizer().summarize(articles)
+textrank_summary = TextRankSummarizer().summarize(articles)
+
+print(f"Transformer summary: {transformer_summary}")
+print(f"TextRank summary: {textrank_summary}")
 ```
 
 ## 📈 Monitor Performance
@@ -137,17 +122,17 @@ curl -X POST "http://localhost:8000/summarize" \
 # Docker services
 docker-compose ps
 
-# Application logs
-docker-compose logs -f app
-
 # Database connection
 docker-compose exec db psql -U postgres -d news_clustering -c "SELECT COUNT(*) FROM articles;"
+
+# Jupyter notebook status
+jupyter notebook list
 ```
 
 ### Performance Metrics
 - **Clustering Accuracy**: > 80%
 - **Summarization Quality**: ROUGE > 0.7
-- **Response Time**: < 5 seconds
+- **Processing Time**: < 5 seconds per batch
 - **Memory Usage**: < 2GB
 
 ## 🐛 Troubleshooting
@@ -196,17 +181,18 @@ docker stats
 - **Data Collection**: `src/data_collection/`
 - **Clustering**: `src/clustering/`
 - **Summarization**: `src/summarization/`
-- **API**: `src/api/`
+- **Evaluation**: `src/evaluation/`
+- **Notebooks**: `notebooks/`
 
 ### 2. Customize Configuration
-- Edit `src/api/main.py` for API settings
 - Modify `src/clustering/hdbscan_clusterer.py` for clustering parameters
 - Update `src/summarization/transformer_summarizer.py` for summarization settings
+- Edit `notebooks/` for analysis and experimentation
 
 ### 3. Add Your Own Features
 - Implement new clustering algorithms
 - Add custom summarization methods
-- Create new API endpoints
+- Create new evaluation metrics
 - Integrate additional data sources
 
 ## 🎯 Development Workflow
@@ -231,7 +217,7 @@ docker stats
 - **README.md**: Project overview
 - **TASK_BREAKDOWN.md**: Detailed task division
 - **COLLABORATION_GUIDE.md**: Team collaboration guide
-- **API Documentation**: http://localhost:8000/docs
+- **Jupyter Notebooks**: Interactive analysis and experimentation
 
 ### Team Communication
 - **GitHub Issues**: Technical discussions
