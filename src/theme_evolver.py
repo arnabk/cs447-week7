@@ -8,9 +8,9 @@ import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 
-from .models import Theme, SurveyResponse, ThemeAssignment, ThemeEvolution
-from .embedding_service import EmbeddingService
-from .database import DatabaseManager
+from models import Theme, SurveyResponse, ThemeAssignment, ThemeEvolution
+from embedding_service import EmbeddingService
+from database import DatabaseManager
 
 logger = logging.getLogger(__name__)
 

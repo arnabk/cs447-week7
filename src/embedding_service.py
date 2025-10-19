@@ -7,12 +7,12 @@ import logging
 from typing import List, Optional, Dict, Any
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-import ollama
+import requests
 import yaml
 import os
 
-from .models import EmbeddingCache
-from .database import DatabaseManager
+from models import EmbeddingCache
+from database import DatabaseManager
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +23,7 @@ class EmbeddingService:
     def __init__(self, config: Dict[str, Any], db_manager: DatabaseManager):
         self.config = config
         self.db_manager = db_manager
-        self.ollama_client = ollama.Client(host=config['ollama']['base_url'])
+        self.ollama_base_url = config['ollama']['base_url']
         self.embedding_model = config['ollama']['embedding_model']
         self.timeout = config['ollama']['embedding_timeout']
         
@@ -58,11 +58,16 @@ class EmbeddingService:
         # Generate new embedding
         logger.debug(f"Generating new embedding for text: {text[:50]}...")
         try:
-            response = self.ollama_client.embeddings(
-                model=self.embedding_model,
-                prompt=text
+            response = requests.post(
+                f"{self.ollama_base_url}/api/embeddings",
+                json={
+                    "model": self.embedding_model,
+                    "prompt": text
+                },
+                timeout=self.timeout
             )
-            embedding = response['embedding']
+            response.raise_for_status()
+            embedding = response.json()['embedding']
             
             # Cache the embedding
             if use_cache:
@@ -112,12 +117,21 @@ class EmbeddingService:
                     batch_texts = texts_to_embed[i:i + batch_size]
                     batch_indices = text_indices[i:i + batch_size]
                     
-                    response = self.ollama_client.embeddings(
-                        model=self.embedding_model,
-                        prompt=batch_texts
-                    )
-                    
-                    batch_embeddings = response['embeddings']
+                    # Process each text individually since Ollama doesn't support batch embeddings
+                    batch_embeddings = []
+                    for text in batch_texts:
+                        response = requests.post(
+                            f"{self.ollama_base_url}/api/embeddings",
+                            json={
+                                "model": self.embedding_model,
+                                "prompt": text
+                            },
+                            timeout=self.timeout
+                        )
+                        response.raise_for_status()
+                        
+                        embedding = response.json()['embedding']
+                        batch_embeddings.append(embedding)
                     
                     # Fill in embeddings and cache them
                     for j, embedding in enumerate(batch_embeddings):
@@ -166,7 +180,15 @@ class EmbeddingService:
                     )
                     result = cursor.fetchone()
                     if result:
-                        return result[0]
+                        embedding = result[0]
+                        # Ensure embedding is a list of floats
+                        if isinstance(embedding, str):
+                            # Parse string representation of list
+                            import ast
+                            embedding = ast.literal_eval(embedding)
+                        elif isinstance(embedding, (list, tuple)):
+                            embedding = list(embedding)
+                        return embedding
             return None
         except Exception as e:
             logger.warning(f"Failed to get cached embedding: {e}")

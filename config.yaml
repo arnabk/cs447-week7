@@ -9,8 +9,8 @@ ollama:
   base_url: http://ollama:11434
   generation_model: llama3.1
   embedding_model: nomic-embed-text
-  generation_timeout: 120
-  embedding_timeout: 30
+  generation_timeout: 300
+  embedding_timeout: 60
 
 thresholds:
   similarity_existing_theme: 0.75
@@ -22,7 +22,7 @@ thresholds:
   min_responses_per_theme: 2
 
 processing:
-  batch_size: 100
+  batch_size: 25
   max_keywords_per_response: 10
   theme_update_drift_threshold: 0.20
 

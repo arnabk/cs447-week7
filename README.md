@@ -23,6 +23,7 @@ docker-compose up
 - [Database Schema](docs/database_schema.md) - Database design and tables
 - [API Reference](docs/api_reference.md) - Module documentation
 - [Testing Guide](docs/testing.md) - Testing and coverage
+- [Evaluation Framework](docs/evaluation.md) - Evaluation criteria
 - [Project Proposal](docs/project_proposal.md) - Project overview and objectives
 
 ## Requirements

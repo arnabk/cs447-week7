@@ -9,8 +9,8 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 import nltk
 
-from .models import HighlightedKeyword
-from .embedding_service import EmbeddingService
+from models import HighlightedKeyword
+from embedding_service import EmbeddingService
 
 logger = logging.getLogger(__name__)
 

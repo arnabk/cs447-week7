@@ -19,6 +19,7 @@ COPY src/ ./src/
 COPY scripts/ ./scripts/
 COPY config.yaml .
 COPY pytest.ini .
+COPY .streamlit/ ./.streamlit/
 
 # Create output directories
 RUN mkdir -p /app/data /app/outputs

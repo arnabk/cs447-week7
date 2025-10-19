@@ -9,7 +9,7 @@ from contextlib import contextmanager
 from typing import List, Dict, Any, Optional, Tuple
 import os
 
-from .models import (
+from models import (
     SurveyResponse, Theme, ThemeAssignment, ThemeEvolution, 
     BatchMetadata, EmbeddingCache
 )
@@ -87,7 +87,15 @@ class DatabaseManager:
                     (batch_id,)
                 )
                 rows = cursor.fetchall()
-                return [SurveyResponse(**row) for row in rows]
+                responses = []
+                for row in rows:
+                    # Fix embedding field if it's a string
+                    if 'embedding' in row and row['embedding'] is not None:
+                        if isinstance(row['embedding'], str):
+                            import ast
+                            row['embedding'] = ast.literal_eval(row['embedding'])
+                    responses.append(SurveyResponse(**row))
+                return responses
     
     def get_response_by_id(self, response_id: int) -> Optional[SurveyResponse]:
         """Get a response by ID."""
@@ -98,7 +106,14 @@ class DatabaseManager:
                     (response_id,)
                 )
                 row = cursor.fetchone()
-                return SurveyResponse(**row) if row else None
+                if row:
+                    # Fix embedding field if it's a string
+                    if 'embedding' in row and row['embedding'] is not None:
+                        if isinstance(row['embedding'], str):
+                            import ast
+                            row['embedding'] = ast.literal_eval(row['embedding'])
+                    return SurveyResponse(**row)
+                return None
     
     # Theme Operations
     def save_theme(self, theme: Theme) -> int:
@@ -209,6 +224,11 @@ class DatabaseManager:
                 rows = cursor.fetchall()
                 results = []
                 for row in rows:
+                    # Fix embedding field if it's a string
+                    if 'embedding' in row and row['embedding'] is not None:
+                        if isinstance(row['embedding'], str):
+                            import ast
+                            row['embedding'] = ast.literal_eval(row['embedding'])
                     response = SurveyResponse(**{k: v for k, v in row.items() if k != 'similarity'})
                     similarity = row['similarity']
                     results.append((response, similarity))

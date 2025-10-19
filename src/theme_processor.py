@@ -7,15 +7,15 @@ import time
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 
-from .models import (
+from models import (
     SurveyResponse, Theme, ThemeAssignment, ThemeEvolution, 
     BatchMetadata, ProcessingResult, BatchData
 )
-from .embedding_service import EmbeddingService
-from .database import DatabaseManager
-from .theme_extractor import ThemeExtractor
-from .keyword_highlighter import KeywordHighlighter
-from .theme_evolver import ThemeEvolver
+from embedding_service import EmbeddingService
+from database import DatabaseManager
+from theme_extractor import ThemeExtractor
+from keyword_highlighter import KeywordHighlighter
+from theme_evolver import ThemeEvolver
 
 logger = logging.getLogger(__name__)
 

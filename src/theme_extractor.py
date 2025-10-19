@@ -5,11 +5,11 @@ Theme extractor using Ollama/Llama for identifying themes in survey responses.
 import json
 import logging
 from typing import List, Dict, Any, Optional
-import ollama
+import requests
 import re
 
-from .models import Theme, SurveyResponse
-from .embedding_service import EmbeddingService
+from models import Theme, SurveyResponse
+from embedding_service import EmbeddingService
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +20,7 @@ class ThemeExtractor:
     def __init__(self, config: Dict[str, Any], embedding_service: EmbeddingService):
         self.config = config
         self.embedding_service = embedding_service
-        self.ollama_client = ollama.Client(host=config['ollama']['base_url'])
+        self.ollama_base_url = config['ollama']['base_url']
         self.generation_model = config['ollama']['generation_model']
         self.timeout = config['ollama']['generation_timeout']
         
@@ -47,18 +47,25 @@ class ThemeExtractor:
         try:
             # Call Ollama to extract themes
             logger.debug(f"Calling Ollama with model: {self.generation_model}")
-            response = self.ollama_client.generate(
-                model=self.generation_model,
-                prompt=prompt,
-                options={
-                    'temperature': 0.3,  # Lower temperature for more consistent results
-                    'top_p': 0.9,
-                    'max_tokens': 2000
-                }
+            response = requests.post(
+                f"{self.ollama_base_url}/api/generate",
+                json={
+                    "model": self.generation_model,
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {
+                        'temperature': 0.3,  # Lower temperature for more consistent results
+                        'top_p': 0.9,
+                        'num_predict': 2000
+                    }
+                },
+                timeout=self.timeout
             )
+            response.raise_for_status()
+            response_data = response.json()
             
             # Parse the response
-            themes_data = self._parse_theme_response(response['response'])
+            themes_data = self._parse_theme_response(response_data['response'])
             
             # Create Theme objects with embeddings
             themes = []
@@ -224,16 +231,23 @@ Update the theme description to better reflect both the original theme and these
 Provide only the updated description, no other text."""
         
         try:
-            response = self.ollama_client.generate(
-                model=self.generation_model,
-                prompt=prompt,
-                options={
-                    'temperature': 0.3,
-                    'max_tokens': 200
-                }
+            response = requests.post(
+                f"{self.ollama_base_url}/api/generate",
+                json={
+                    "model": self.generation_model,
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {
+                        'temperature': 0.3,
+                        'num_predict': 200
+                    }
+                },
+                timeout=self.timeout
             )
+            response.raise_for_status()
+            response_data = response.json()
             
-            updated_description = response['response'].strip()
+            updated_description = response_data['response'].strip()
             
             # Clean up the description
             updated_description = re.sub(r'^["\']|["\']$', '', updated_description)
@@ -253,8 +267,10 @@ Provide only the updated description, no other text."""
     def test_connection(self) -> bool:
         """Test connection to Ollama."""
         try:
-            models = self.ollama_client.list()
-            available_models = [model['name'] for model in models['models']]
+            response = requests.get(f"{self.ollama_base_url}/api/tags", timeout=10)
+            response.raise_for_status()
+            models_data = response.json()
+            available_models = [model['name'] for model in models_data['models']]
             
             if self.generation_model not in available_models:
                 logger.warning(f"Model {self.generation_model} not found. Available: {available_models}")
